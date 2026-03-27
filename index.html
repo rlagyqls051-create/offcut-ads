@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OFFCUT Ads 관리</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 40px 20px; }
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: #f8fafc; }
+    .sub { font-size: 13px; color: #64748b; margin-bottom: 40px; }
+    .card { background: #1e293b; border-radius: 16px; padding: 28px; max-width: 560px; margin: 0 auto; border: 1px solid #334155; }
+    .label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #94a3b8; margin-bottom: 10px; }
+    .ad-image { width: 100%; border-radius: 10px; display: block; margin-bottom: 20px; border: 1px solid #334155; }
+    .info-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+    .badge { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #94a3b8; }
+    .link-btn { display: inline-block; margin-top: 16px; padding: 10px 20px; background: #2563eb; color: white; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; }
+    .link-btn:hover { background: #1d4ed8; }
+    .notice { margin-top: 16px; font-size: 11px; color: #475569; line-height: 1.6; }
+    .divider { border: none; border-top: 1px solid #334155; margin: 28px 0; }
+    .update-tip { background: #0f172a; border-radius: 10px; padding: 16px; font-size: 12px; color: #64748b; line-height: 1.8; }
+    .update-tip code { background: #1e293b; border: 1px solid #334155; border-radius: 4px; padding: 2px 6px; font-family: monospace; color: #7dd3fc; }
+  </style>
+</head>
+<body>
+  <div style="max-width:560px;margin:0 auto;">
+    <h1>OFFCUT Ads</h1>
+    <p class="sub">현재 노출 중인 광고 미리보기</p>
+
+    <div class="card" id="ad-card">
+      <div class="label">종료 시 광고 (shutdown)</div>
+      <p style="color:#475569;font-size:13px;">광고 로딩 중...</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="update-tip">
+      <strong style="color:#94a3b8;">광고 교체 방법</strong><br />
+      1. <code>ads/shutdown.jpg</code> 파일을 새 이미지로 교체<br />
+      2. <code>ads/config.json</code>에서 <code>link</code> 값을 새 쿠팡 URL로 변경<br />
+      3. 커밋 후 1~2분 뒤 자동 반영
+    </div>
+  </div>
+
+  <script>
+    fetch('./ads/config.json?t=' + Date.now())
+      .then(r => r.json())
+      .then(data => {
+        const ad = data.shutdown;
+        const card = document.getElementById('ad-card');
+        if (!ad) { card.innerHTML += '<p style="color:#ef4444">config.json에 shutdown 항목 없음</p>'; return; }
+        card.innerHTML = `
+          <div class="label">종료 시 광고 (shutdown)</div>
+          <img class="ad-image" src="${ad.image}" alt="광고 이미지" />
+          <div class="info-row">
+            <span class="badge">⏱ ${(ad.duration_ms/1000).toFixed(0)}초 노출</span>
+            <span class="badge">✅ 활성</span>
+          </div>
+          <div style="font-size:12px;color:#64748b;word-break:break-all;">링크: ${ad.link || '없음'}</div>
+          ${ad.link ? `<a class="link-btn" href="${ad.link}" target="_blank">광고 링크 열기 →</a>` : ''}
+          <p class="notice">이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+        `;
+      })
+      .catch(() => {
+        document.getElementById('ad-card').innerHTML += '<p style="color:#ef4444">config.json 로드 실패</p>';
+      });
+  </script>
+</body>
+</html>
