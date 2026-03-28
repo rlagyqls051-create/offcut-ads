@@ -2,9 +2,20 @@
   "shutdown": {
     "products": [
       {
-        "image": "https://rlagyqls051-create.github.io/offcut-ads/ads/product1.jpg",
-        "link": "https://link.coupang.com/a/ecMjOu",
-        "title": "제품1"
+        "image": "https://rlagyqls051-create.github.io/offcut-ads/ads/shutdown1.jpg",
+        "link": "https://link.coupang.com/a/ecMjOu"
+      },
+      {
+        "image": "https://rlagyqls051-create.github.io/offcut-ads/ads/shutdown2.jpg",
+        "link": "https://link.coupang.com/a/ec2v23"
+      },
+      {
+        "image": "https://rlagyqls051-create.github.io/offcut-ads/ads/shutdown3.jpg",
+        "link": "https://link.coupang.com/a/ec2uoY"
+      },
+      {
+        "image": "https://rlagyqls051-create.github.io/offcut-ads/ads/shutdown4.jpg",
+        "link": "https://link.coupang.com/a/ec2w35"
       }
     ]
   }
