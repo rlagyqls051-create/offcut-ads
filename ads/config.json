@@ -1,7 +1,11 @@
 {
   "shutdown": {
-    "image": "https://rlagyqls051-create.github.io/offcut-ads/ads/shutdown.jpg",
-    "link": "https://link.coupang.com/a/ecMjOu",
-    "duration_ms": 5000
+    "products": [
+      {
+        "image": "https://rlagyqls051-create.github.io/offcut-ads/ads/product1.jpg",
+        "link": "https://link.coupang.com/a/ecMjOu",
+        "title": "제품1"
+      }
+    ]
   }
 }
